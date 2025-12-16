@@ -38,4 +38,14 @@ public class Category {
         this.books = books;
     }
 
+    public void addBook(Book book) {
+        books.add(book);
+        book.setCategory(this);
+    }
+
+    public void removeBook(Book book) {
+        books.remove(book);
+        book.setCategory(null);
+    }
+
 }

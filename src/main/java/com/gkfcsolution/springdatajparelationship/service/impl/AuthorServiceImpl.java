@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Created on 2025 at 14:28
@@ -53,36 +56,62 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<AuthorResponseDto> getAuthors() {
-        return null;
+        List<Author> authors = StreamSupport.stream(authorRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        return Mapper.authorsToAuthorResponseDtos(authors);
     }
 
     @Override
     public AuthorResponseDto getAuthorById(Long authorId) {
-        return null;
+        return Mapper.authorToAuthorResponseDto(getAuthor(authorId));
     }
 
     @Override
     public Author getAuthor(Long authorId) {
-        return null;
+        return authorRepository.findById(authorId)
+                .orElseThrow(() -> new IllegalArgumentException("Author not found with id: " + authorId));
     }
 
     @Override
     public AuthorResponseDto deleteAuthor(Long authorId) {
-        return null;
+        Author author = getAuthor(authorId);
+        authorRepository.delete(author);
+        return Mapper.authorToAuthorResponseDto(author);
     }
 
+    @Transactional
     @Override
     public AuthorResponseDto editAuthor(Long authorId, AuthorRequestDto authorRequestDto) {
-        return null;
+        Author authorToEdit = getAuthor(authorId);
+        authorToEdit.setName(authorRequestDto.getName());
+        if(authorRequestDto.getZipcodeId() != null){
+            Zipcode zipcode = zipcodeService.getZipcode(authorRequestDto.getZipcodeId());
+            authorToEdit.setZipcode(zipcode);
+        }
+        return Mapper.authorToAuthorResponseDto(authorToEdit);
+//        return Mapper.authorToAuthorResponseDto(authorRepository.save(authorToEdit));
     }
 
+    @Transactional
     @Override
     public AuthorResponseDto addZipcodeToAuthor(Long authorId, Long zipcodeId) {
-        return null;
+        Author author = getAuthor(authorId);
+        Zipcode zipcode = zipcodeService.getZipcode(zipcodeId);
+        if (Objects.nonNull(author.getZipcode())){
+            log.error("Author with id {} already has a zipcode assigned", authorId);
+            throw new IllegalStateException("Author with id " + authorId + " already has a zipcode assigned");
+        }
+        author.setZipcode(zipcode);
+        return Mapper.authorToAuthorResponseDto(author);
+//        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
     }
 
+    @Transactional
     @Override
     public AuthorResponseDto removeZipcodeFromAuthor(Long authorId, Long zipcodeId) {
-        return null;
+        Author author = getAuthor(authorId);
+        author.setZipcode(null);
+        return Mapper.authorToAuthorResponseDto(author);
+//        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
     }
 }
