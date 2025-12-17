@@ -46,8 +46,7 @@ public class ZipcodeServiceImpl implements ZipcodeService {
         City city = cityService.getCity(zipcodeRequestDto.getCityId());
         zipcode.setCity(city);
 
-        return zipcode;
-//        return zipcodeRepository.save(zipcode);
+        return zipcodeRepository.save(zipcode);
     }
 
     @Override
@@ -80,8 +79,7 @@ public class ZipcodeServiceImpl implements ZipcodeService {
         zipcodeToEdit.setCity(city);
 
 
-        return zipcodeToEdit;
-//        return zipcodeRepository.save(zipcodeToEdit);
+        return zipcodeRepository.save(zipcodeToEdit);
     }
 
     @Transactional
@@ -97,8 +95,7 @@ public class ZipcodeServiceImpl implements ZipcodeService {
         zipcode.setCity(city);
 
 
-        return zipcode;
-//        return zipcodeRepository.save(zipcode);
+        return zipcodeRepository.save(zipcode);
     }
 
     @Transactional
@@ -110,7 +107,6 @@ public class ZipcodeServiceImpl implements ZipcodeService {
            throw new IllegalStateException("Zipcode with id " + zipcodeId + " has no city assigned");
         }
         zipcode.setCity(null);
-        return zipcode;
-//        return zipcodeRepository.save(zipcode);
+        return zipcodeRepository.save(zipcode);
     }
 }

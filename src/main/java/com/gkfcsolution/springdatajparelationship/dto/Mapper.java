@@ -5,6 +5,7 @@ import com.gkfcsolution.springdatajparelationship.dto.responseDto.BookResponseDt
 import com.gkfcsolution.springdatajparelationship.dto.responseDto.CategoryResponseDto;
 import com.gkfcsolution.springdatajparelationship.entity.Author;
 import com.gkfcsolution.springdatajparelationship.entity.Book;
+import com.gkfcsolution.springdatajparelationship.entity.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +66,11 @@ public class Mapper {
         return authorResponseDtos;
     }
 
-    public static CategoryResponseDto categoryToCategoryResponseDto(com.gkfcsolution.springdatajparelationship.entity.Category category){
+    public static CategoryResponseDto categoryToCategoryResponseDto(Category category){
         CategoryResponseDto categoryResponseDto = CategoryResponseDto.builder()
                 .id(category.getId())
                 .name(category.getName())
+                .bookNames(new ArrayList<>())
                 .build();
 
         List<String> bookNames = new ArrayList<>();
@@ -80,7 +82,7 @@ public class Mapper {
         return categoryResponseDto;
     }
 
-    public static List<CategoryResponseDto> categoriesToCategoryResponseDtos(List<com.gkfcsolution.springdatajparelationship.entity.Category> categories){
+    public static List<CategoryResponseDto> categoriesToCategoryResponseDtos(List<Category> categories){
         List<CategoryResponseDto> categoryResponseDtos = new ArrayList<>();
         for (com.gkfcsolution.springdatajparelationship.entity.Category category : categories) {
             categoryResponseDtos.add(categoryToCategoryResponseDto(category));

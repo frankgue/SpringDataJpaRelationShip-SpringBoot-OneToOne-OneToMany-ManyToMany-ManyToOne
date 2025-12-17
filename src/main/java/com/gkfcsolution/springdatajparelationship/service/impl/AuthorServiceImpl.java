@@ -88,8 +88,7 @@ public class AuthorServiceImpl implements AuthorService {
             Zipcode zipcode = zipcodeService.getZipcode(authorRequestDto.getZipcodeId());
             authorToEdit.setZipcode(zipcode);
         }
-        return Mapper.authorToAuthorResponseDto(authorToEdit);
-//        return Mapper.authorToAuthorResponseDto(authorRepository.save(authorToEdit));
+        return Mapper.authorToAuthorResponseDto(authorRepository.save(authorToEdit));
     }
 
     @Transactional
@@ -102,8 +101,7 @@ public class AuthorServiceImpl implements AuthorService {
             throw new IllegalStateException("Author with id " + authorId + " already has a zipcode assigned");
         }
         author.setZipcode(zipcode);
-        return Mapper.authorToAuthorResponseDto(author);
-//        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
+        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
     }
 
     @Transactional
@@ -111,7 +109,6 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorResponseDto removeZipcodeFromAuthor(Long authorId, Long zipcodeId) {
         Author author = getAuthor(authorId);
         author.setZipcode(null);
-        return Mapper.authorToAuthorResponseDto(author);
-//        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
+        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
     }
 }

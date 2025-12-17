@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +32,16 @@ public class Category {
 
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
+
+  /*  public Category() {
+        books = new ArrayList<>();
+    }
+
+    public Category(String name) {
+        this.name = name;
+        books = new ArrayList<>();
+    }*/
 
     public Category(String name, List<Book> books) {
         this.name = name;
@@ -40,12 +50,12 @@ public class Category {
 
     public void addBook(Book book) {
         books.add(book);
-        book.setCategory(this);
+//        book.setCategory(this);
     }
 
     public void removeBook(Book book) {
         books.remove(book);
-        book.setCategory(null);
+//        book.setCategory(null);
     }
 
 }

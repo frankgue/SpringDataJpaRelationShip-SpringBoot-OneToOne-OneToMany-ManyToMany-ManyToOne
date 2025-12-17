@@ -28,7 +28,7 @@ import java.util.List;
 public class BookRequestDto {
     private String name;
 
-    private List<Long> authorIds;
+    private List<Long> authorIds = new ArrayList<>();
 
     private Long categoryId;
 }

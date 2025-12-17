@@ -42,9 +42,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDto addCategory(CategoryRequestDto categoryRequestDto) {
-        Category category = Category.builder()
-                .name(categoryRequestDto.getName())
-                .build();
+        Category category = new Category();
+        category.setName(categoryRequestDto.getName());
+        log.info("Saving new category: {}", category);
         Category savedCategory = categoryRepository.save(category);
         return Mapper.categoryToCategoryResponseDto(savedCategory);
     }

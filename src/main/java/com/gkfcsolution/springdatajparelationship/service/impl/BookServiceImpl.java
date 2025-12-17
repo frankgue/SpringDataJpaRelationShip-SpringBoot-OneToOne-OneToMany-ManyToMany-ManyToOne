@@ -122,8 +122,7 @@ public class BookServiceImpl implements BookService {
             bookToEdit.setCategory(category);
         }
 
-        return Mapper.bookToBookResponseDto(bookToEdit);
-//        return Mapper.bookToBookResponseDto(bookRepository.save(bookToEdit));
+        return Mapper.bookToBookResponseDto(bookRepository.save(bookToEdit));
     }
 
     @Transactional

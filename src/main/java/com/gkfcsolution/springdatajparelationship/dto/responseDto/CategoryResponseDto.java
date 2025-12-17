@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,5 +24,5 @@ import java.util.List;
 public class CategoryResponseDto {
     private Long id;
     private String name;
-    private List<String> bookNames;
+    private List<String> bookNames = new ArrayList<>();
 }
