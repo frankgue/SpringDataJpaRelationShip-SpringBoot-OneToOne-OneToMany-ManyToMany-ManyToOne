@@ -1,6 +1,7 @@
 package com.gkfcsolution.springdatajparelationship.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,8 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @com.gkfcsolution.springdatajparelationship.validator.City
+    @NotEmpty(message = "City name must not be empty")
     private String name;
 
     public City(String name) {
