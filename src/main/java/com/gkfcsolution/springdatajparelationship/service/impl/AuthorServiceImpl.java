@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,6 +41,7 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorResponseDto addAuthor(AuthorRequestDto authorRequestDto) {
         Author author = Author.builder()
                 .name(authorRequestDto.getName())
+                .books(new ArrayList<>())
                 .build();
 
         if (authorRequestDto.getZipcodeId() == null) {
@@ -49,9 +51,9 @@ public class AuthorServiceImpl implements AuthorService {
 
         Zipcode zipcode = zipcodeService.getZipcode(authorRequestDto.getZipcodeId());
         author.setZipcode(zipcode);
-        authorRepository.save(author);
+//        authorRepository.save(author);
 
-        return Mapper.authorToAuthorResponseDto(author);
+        return Mapper.authorToAuthorResponseDto(authorRepository.save(author));
     }
 
     @Override

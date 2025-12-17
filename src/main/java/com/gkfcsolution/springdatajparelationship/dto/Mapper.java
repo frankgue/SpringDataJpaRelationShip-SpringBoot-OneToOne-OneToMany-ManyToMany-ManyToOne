@@ -47,6 +47,7 @@ public class Mapper {
         AuthorResponseDto authorResponseDto = AuthorResponseDto.builder()
                 .id(author.getId())
                 .name(author.getName())
+                .bookNames(new ArrayList<>())
                 .build();
         List<String> names = new ArrayList<>();
         List<Book> books = author.getBooks();
